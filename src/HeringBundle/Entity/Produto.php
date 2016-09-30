@@ -1,8 +1,8 @@
 <?php
-
 namespace HeringBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity
@@ -17,14 +17,25 @@ class Produto
     private $codigo;
     /**
      * @ORM\Column(type="string", length=100)
+     * @Assert\Type(
+     *     type="alpha",
+     *     message="Permitido somente nome com letras."
+     * )
      */
     private $nome;
     /**
-     * @ORM\Column(type="string", length=20)
+     * @ORM\Column(type="string", length=20)        
      */
     private $tamanho;
     /**
      * @ORM\Column(type="decimal", scale=2)
+     * @Assert\Type(
+     *     type="decimal",
+     *     message="Permitido somente nome com numeros."
+     * )
+     * @Assert\GreaterThanOrEqual(
+     *      value= 0,
+     *      message="Valor informado é invalido.")
      */
     private $valor;
     /**
@@ -32,10 +43,23 @@ class Produto
      */
     private $modelo;
     /**
-     * @ORM\Column(type="integer")    
+     * @ORM\Column(type="integer")
+     * @Assert\Type(
+     *     type="number",
+     *     message="Permitido somente numeros."
+     * )
+     * @Assert\GreaterThanOrEqual(
+     *      value= 0,
+     *      message="Valor informado é invalido.")
      */
     private $quantidade;
 
+    /**
+     * @ORM\ManyToOne(targetEntity="Marca")
+     * @ORM\JoinColumn(name="marca_id", referencedColumnName="id")
+     */    
+    private $marca;
+    
     
     /**
      * Set codigo
@@ -179,5 +203,29 @@ class Produto
     public function getQuantidade()
     {
         return $this->quantidade;
+    }
+
+    /**
+     * Set marca
+     *
+     * @param \HeringBundle\Entity\Marca $marca
+     *
+     * @return Produto
+     */
+    public function setMarca(\HeringBundle\Entity\Marca $marca = null)
+    {
+        $this->marca = $marca;
+
+        return $this;
+    }
+
+    /**
+     * Get marca
+     *
+     * @return \HeringBundle\Entity\Marca
+     */
+    public function getMarca()
+    {
+        return $this->marca;
     }
 }

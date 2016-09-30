@@ -1,47 +1,43 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-    <h1>Produto list</h1>
+    <div class="col-md-12">
+        
+        <a class="btn btn-primary pull-right" href="{{ path('produto_new') }}">Cadastrar Novo</a>
+        
+        <h1>Listagem de Produtos</h1>
 
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Codigo</th>
-                <th>Nome</th>
-                <th>Tamanho</th>
-                <th>Valor</th>
-                <th>Modelo</th>
-                <th>Quantidade</th>
-                <th>Actions</th>
-            </tr>
-        </thead>
-        <tbody>
-        {% for produto in produtos %}
-            <tr>
-                <td><a href="{{ path('produto_show', { 'id': produto.codigo }) }}">{{ produto.codigo }}</a></td>
-                <td>{{ produto.nome }}</td>
-                <td>{{ produto.tamanho }}</td>
-                <td>{{ produto.valor }}</td>
-                <td>{{ produto.modelo }}</td>
-                <td>{{ produto.quantidade }}</td>
-                <td>
-                    <ul>
-                        <li>
-                            <a href="{{ path('produto_show', { 'id': produto.codigo }) }}">show</a>
-                        </li>
-                        <li>
-                            <a href="{{ path('produto_edit', { 'id': produto.codigo }) }}">edit</a>
-                        </li>
-                    </ul>
-                </td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
-
-    <ul>
-        <li>
-            <a href="{{ path('produto_new') }}">Create a new entry</a>
-        </li>
-    </ul>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Codigo</th>
+                    <th>Nome</th>
+                    <th>Tamanho</th>
+                    <th>Valor</th>
+                    <th>Modelo</th>
+                    <th>Quantidade</th>
+                    <th>Marca</th>
+                    <th>Ações</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for produto in produtos %}
+                    <tr>
+                        <td><a href="{{ path('produto_show', { 'id': produto.codigo }) }}">{{ produto.codigo }}</a></td>
+                        <td>{{ produto.nome|capitalize }}</td>
+                        <td>{{ produto.tamanho }}</td>
+                        <td>R$ {{ produto.valor|number_format(2, ',', '.') }}</td>
+                        <td>{{ produto.modelo }}</td>
+                        <td>{{ produto.quantidade }}</td>
+                        <td>{{ produto.marca }}</td>
+                        <td>
+                             <a class="btn btn-default" href="{{ path('produto_edit', { 'id': produto.codigo }) }}">
+                                 <span class="glyphicon glyphicon-cog"></span>
+                            </a>
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
 {% endblock %}
