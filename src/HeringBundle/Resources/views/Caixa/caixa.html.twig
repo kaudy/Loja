@@ -1,0 +1,94 @@
+{% extends "base.html.twig" %}
+
+{% block javascripts %}
+    <script type="text/javascript" src="{{ asset('js/pdv.js') }}"></script>
+{% endblock %}
+
+{% block body %}
+    <div class="col-md-4">
+        <div class="panel panel-primary">
+            <div class="panel-body">
+                <form id="find-produto" method="post" action="{{ path('produto_find') }}">  
+                    <div class="input-group">
+                        <span class="input-group-addon"><span class="glyphicon glyphicon-barcode"></span></span>
+                        <input type="text" name="produto" class="form-control" >
+                        <span class="input-group-btn">
+                            <button class="btn btn-success" type="submit">
+                                <span class="glyphicon glyphicon-triangle-right"></span>
+                            </button>
+                        </span>
+                    </div>
+                </form>
+                <hr />
+                <div class="alert alert-warning hide" id="alerta-produto" role="alert">Produto não encontrado</div>
+                <div id="produto" class="thumbnail hide">
+                    <img src="..." alt="..." height="150" width="150">
+                    <div class="caption">
+                        <h3 class="nome">Nome do Produto</h3>
+                        <p>Preço Unitario: R$ <span class="preco"></span></p>
+                        <p>Marca: <span class="marca"> </span></p>
+                        <p>Tamanho: <span class="tamanho"> </span></p>
+                        <p>Modelo: <span class="modelo"> </span></p>
+                    </div>
+                </div> 
+
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-8">
+        <div class="panel panel-primary">
+            <div class="panel-heading">
+                Total a Pagar: <span class="total-pagar pull-right">R$ 1.234,56</span>
+            </div>
+            <div class="panel-body">
+
+                <ol>
+                    <li>Produto x <span class="pull-right">R$ 123,46</span></li>
+                    <li>Produto x <span class="pull-right">R$ 123,46</span></li>
+                </ol>
+
+            </div>
+
+            <div class="panel-footer">
+                <button class="btn btn-warning">Estornar Produto</button>
+                <button class="btn btn-primary">Finalizar Compra</button>
+                <button class="btn btn-danger" data-toggle="modal" data-target="#cancelar">Cancelar Compra</button>
+
+            </div>
+        </div>
+
+
+
+    </div>
+
+    <div id="cancelar" class="modal fade" tabindex="-1" role="dialog">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title">Cancelar Compra</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="alert alert-danger" role="alert">
+                        <h3 class="glyphicon glyphicon-question-sign"></h3> Tem certeza que deseja cancelar a compra?
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-success" data-dismiss="modal">Não</button>
+                    <button type="button" class="btn btn-danger">Sim</button>
+                </div>
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal-dialog -->
+    </div><!-- /.modal -->
+
+{% endblock %}
+
+{% block stylesheets %}
+    <style >
+        .total-pagar{
+            font-size: 16pt;
+            font-weight: bold;
+        }
+    </style>
+{% endblock %}

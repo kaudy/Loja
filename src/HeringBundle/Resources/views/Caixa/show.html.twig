@@ -1,0 +1,36 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Caixa</h1>
+
+    <table>
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ caixa.id }}</td>
+            </tr>
+            <tr>
+                <th>Totalpago</th>
+                <td>{{ caixa.totalPago }}</td>
+            </tr>
+            <tr>
+                <th>Status</th>
+                <td>{{ caixa.status }}</td>
+            </tr>
+            <tr>
+                <th>Data</th>
+                <td>{% if caixa.data %}{{ caixa.data|date('Y-m-d H:i:s') }}{% endif %}</td>
+            </tr>
+            <tr>
+                <th>Usuario</th>
+                <td>{{ caixa.usuario }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('caixa_index') }}">Back to the list</a>
+        </li>
+    </ul>
+{% endblock %}

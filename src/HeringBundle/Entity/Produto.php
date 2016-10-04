@@ -1,4 +1,5 @@
 <?php
+
 namespace HeringBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
@@ -8,58 +9,72 @@ use Symfony\Component\Validator\Constraints as Assert;
  * @ORM\Entity
  * @ORM\Table(name="produto")
  */
-class Produto
+class Produto implements \JsonSerializable
 {
-     /**
+    /**
      * @ORM\Column(type="integer")
-     * @ORM\Id    
+     * @ORM\Id
      */
     private $codigo;
+    
     /**
      * @ORM\Column(type="string", length=100)
      * @Assert\Type(
      *     type="alpha",
-     *     message="Permitido somente nome com letras."
+     *     message="Só é permitido nomes com letras."
      * )
      */
     private $nome;
+    
     /**
-     * @ORM\Column(type="string", length=20)        
+     * @ORM\Column(type="string", length=20)
      */
     private $tamanho;
+    
     /**
-     * @ORM\Column(type="decimal", scale=2)
      * @Assert\Type(
-     *     type="decimal",
-     *     message="Permitido somente nome com numeros."
+     *     type="numeric",
+     *     message="O valor está incorreto."
      * )
      * @Assert\GreaterThanOrEqual(
-     *      value= 0,
-     *      message="Valor informado é invalido.")
+     *     value = 0,
+     *     message="O valor deve ser maior ou igual a zero"
+     * )
+     * @ORM\Column(type="decimal", scale=2)
      */
     private $valor;
+    
     /**
      * @ORM\Column(type="string", length=20)
      */
     private $modelo;
+    
     /**
      * @ORM\Column(type="integer")
-     * @Assert\Type(
-     *     type="number",
-     *     message="Permitido somente numeros."
-     * )
-     * @Assert\GreaterThanOrEqual(
-     *      value= 0,
-     *      message="Valor informado é invalido.")
      */
     private $quantidade;
-
+    
     /**
      * @ORM\ManyToOne(targetEntity="Marca")
      * @ORM\JoinColumn(name="marca_id", referencedColumnName="id")
-     */    
+     */
     private $marca;
+
     
+    
+    
+    
+    public function jsonSerialize()
+    {
+        return array(
+            "codigo"=> $this->codigo,
+            "nome" => $this->nome,
+            "valor" => $this->valor,
+            "modelo" => $this->modelo,
+            "marca" => $this->marca->getNome(),
+            "tamanho" => $this->tamanho
+        );        
+    }
     
     /**
      * Set codigo
@@ -228,4 +243,6 @@ class Produto
     {
         return $this->marca;
     }
+    
+    
 }

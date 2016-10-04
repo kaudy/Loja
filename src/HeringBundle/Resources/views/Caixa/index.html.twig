@@ -1,0 +1,39 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <div class="col-md-12">
+    <h1>Listagem de vendas</h1>
+
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Totalpago</th>
+                <th>Status</th>
+                <th>Data</th>
+                <th>Usuario</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for caixa in caixas %}
+            <tr>
+                <td><a href="{{ path('caixa_show', { 'id': caixa.id }) }}">{{ caixa.id }}</a></td>
+                <td>{{ caixa.totalPago }}</td>
+                <td>{{ caixa.status }}</td>
+                <td>{% if caixa.data %}{{ caixa.data|date('Y-m-d H:i:s') }}{% endif %}</td>
+                <td>{{ caixa.usuario }}</td>
+                <td>
+                    <ul>
+                        <li>
+                            <a href="{{ path('caixa_show', { 'id': caixa.id }) }}">show</a>
+                        </li>
+                    </ul>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+    </div>
+    
+{% endblock %}

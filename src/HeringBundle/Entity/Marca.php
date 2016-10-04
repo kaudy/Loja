@@ -1,4 +1,5 @@
 <?php
+
 namespace HeringBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
@@ -7,7 +8,7 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\Entity
  * @ORM\Table(name="marca")
  */
-class Marca
+class Marca 
 {
     /**
      * @ORM\Column(type="integer")
@@ -20,6 +21,7 @@ class Marca
      * @ORM\Column(type="string", length=100)
      */
     private $nome;
+    
 
     /**
      * Get id
@@ -55,8 +57,9 @@ class Marca
         return $this->nome;
     }
     
-    public function __toString()
+    public function __toString() 
     {
         return $this->nome;
     }
+
 }

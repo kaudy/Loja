@@ -4,10 +4,12 @@ namespace HeringBundle\Controller;
 
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use HeringBundle\Entity\Produto;
 use HeringBundle\Form\ProdutoType;
+
 
 /**
  * Produto controller.
@@ -67,6 +69,7 @@ class ProdutoController extends Controller
      */
     public function showAction(Produto $produto)
     {
+        
         $deleteForm = $this->createDeleteForm($produto);
 
         return $this->render('HeringBundle:Produto:show.html.twig', array(
@@ -74,6 +77,24 @@ class ProdutoController extends Controller
             'delete_form' => $deleteForm->createView(),
         ));
     }
+    
+    /**
+     * Exibe o produto com um jsonnn
+     *
+     * @Route("/find", name="produto_find")
+     * @Method("POST")
+     */
+    public function findAction(Request $request)
+    {
+        $prodCod = $request->get('produto');
+        
+        //var_dump($prodCod); die();
+        
+        $em = $this->getDoctrine()->getManager();
+        $produto = $em->getRepository('HeringBundle:Produto')->find($prodCod);
+        
+        return new JsonResponse($produto);        
+    }  
 
     /**
      * Displays a form to edit an existing Produto entity.
@@ -132,7 +153,7 @@ class ProdutoController extends Controller
     private function createDeleteForm(Produto $produto)
     {
         return $this->createFormBuilder()
-            ->setAction($this->generateUrl('produto_delete', array('id' => $produto->getCodigo())))
+            ->setAction($this->generateUrl('produto_delete', array('id' => $produto->getCodigo() )))
             ->setMethod('DELETE')
             ->getForm()
         ;
