@@ -9,6 +9,7 @@ use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Doctrine\ORM\EntityRepository;
+use Symfony\Component\Form\Extension\Core\Type\FileType;
 
 class ProdutoType extends AbstractType
 {
@@ -39,6 +40,7 @@ class ProdutoType extends AbstractType
                         ->orderBy('u.nome', 'ASC');
                 },
             ))
+            ->add('imagem', FileType::class)
         ;
     }
     

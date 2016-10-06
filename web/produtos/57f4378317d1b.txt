@@ -1,0 +1,56 @@
+2014-08-28 16:36:08 ERROR  : Error connecting to the server: fe_sendauth: no password supplied
+
+2014-08-28 16:36:52 ERROR  : Error connecting to the server: FATAL:  password authentication failed for user "postgres"
+FATAL:  password authentication failed for user "postgres"
+
+2014-08-28 16:36:58 ERROR  : Error connecting to the server: FATAL:  password authentication failed for user "postgres"
+FATAL:  password authentication failed for user "postgres"
+
+2014-08-28 16:37:21 ERROR  : Error connecting to the server: FATAL:  password authentication failed for user "postgres"
+FATAL:  password authentication failed for user "postgres"
+
+2014-08-28 16:38:01 ERROR  : Error connecting to the server: FATAL:  password authentication failed for user "postgres"
+FATAL:  password authentication failed for user "postgres"
+
+2014-08-28 16:38:05 ERROR  : Error connecting to the server: FATAL:  password authentication failed for user "postgres"
+FATAL:  password authentication failed for user "postgres"
+
+2014-08-28 16:38:16 ERROR  : Error connecting to the server: FATAL:  password authentication failed for user "postgres"
+FATAL:  password authentication failed for user "postgres"
+
+2014-08-28 16:40:52 ERROR  : Error connecting to the server: FATAL:  password authentication failed for user "postgres"
+FATAL:  password authentication failed for user "postgres"
+
+2014-08-28 16:41:25 ERROR  : Error connecting to the server: FATAL:  password authentication failed for user "postgres"
+FATAL:  password authentication failed for user "postgres"
+
+2014-08-28 16:41:42 ERROR  : Error connecting to the server: FATAL:  password authentication failed for user "postgres"
+FATAL:  password authentication failed for user "postgres"
+
+2014-08-28 16:41:47 ERROR  : Error connecting to the server: fe_sendauth: no password supplied
+
+2014-08-29 14:33:32 ERROR  : Error connecting to the server: definition of service "Postgres" not found
+
+2014-08-29 14:33:40 ERROR  : Error connecting to the server: FATAL:  password authentication failed for user "postgres"
+FATAL:  password authentication failed for user "postgres"
+
+2014-08-29 14:34:48 ERROR  : Error connecting to the server: fe_sendauth: no password supplied
+
+2014-08-29 14:34:52 ERROR  : Error connecting to the server: fe_sendauth: no password supplied
+
+2014-08-29 14:34:59 ERROR  : Error connecting to the server: FATAL:  password authentication failed for user "postgres"
+FATAL:  password authentication failed for user "postgres"
+
+2014-08-29 14:35:38 ERROR  : SSH error: Could not connect to socket with error code 111
+2014-08-29 14:35:56 ERROR  : SSH error: Could not connect to socket with error code 111
+2014-08-29 14:36:03 ERROR  : Error connecting to the server: fe_sendauth: no password supplied
+
+2014-08-29 14:36:14 ERROR  : Error connecting to the server: FATAL:  password authentication failed for user "postgres"
+FATAL:  password authentication failed for user "postgres"
+
+2014-08-29 14:36:27 ERROR  : Error connecting to the server: FATAL:  password authentication failed for user "root"
+FATAL:  password authentication failed for user "root"
+
+2014-08-29 14:36:34 ERROR  : Error connecting to the server: FATAL:  password authentication failed for user "root"
+FATAL:  password authentication failed for user "root"
+

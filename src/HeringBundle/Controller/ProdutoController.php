@@ -4,12 +4,15 @@ namespace HeringBundle\Controller;
 
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Symfony\Component\HttpFoundation\JsonResponse;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
+
 use HeringBundle\Entity\Produto;
 use HeringBundle\Form\ProdutoType;
-
+use HeringBundle\Entity\Caixa;
+use HeringBundle\Entity\CaixaItem;
 
 /**
  * Produto controller.
@@ -48,6 +51,19 @@ class ProdutoController extends Controller
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            
+            /** 
+             * @var Symfony\Component\HttpFoundation\File\UploadedFile $imagem 
+             */
+            $imagem = $produto->getImagem();
+            
+            $nomeArquivo = uniqid().'.'.$imagem->guessExtension();
+            
+            $imagem->move($this->getParameter('imagem_produtos'),
+                    $nomeArquivo);
+            
+            $produto->setImagem($nomeArquivo);
+            
             $em = $this->getDoctrine()->getManager();
             $em->persist($produto);
             $em->flush();
@@ -79,7 +95,7 @@ class ProdutoController extends Controller
     }
     
     /**
-     * Exibe o produto com um jsonnn
+     * Exige o produto como um json
      *
      * @Route("/find", name="produto_find")
      * @Method("POST")
@@ -88,13 +104,29 @@ class ProdutoController extends Controller
     {
         $prodCod = $request->get('produto');
         
-        //var_dump($prodCod); die();
-        
         $em = $this->getDoctrine()->getManager();
         $produto = $em->getRepository('HeringBundle:Produto')->find($prodCod);
         
-        return new JsonResponse($produto);        
-    }  
+        if ($produto != null)
+        {
+            $caixaId = $request->getSession()->get('caixa_id');
+            
+            $caixa = $em->getRepository('HeringBundle:Caixa')->find($caixaId);
+            
+            $item = new CaixaItem();
+            $item->setNumeroItem('1');
+            $item->setCodigoItem($produto->getCodigo());
+            $item->setQuantidade(1);
+            $item->setValor($produto->getValor());
+            
+            $item->setCaixa($caixa);      
+            $em->persist($item);          
+            $em->flush();
+        }
+                
+
+        return new JsonResponse($produto);
+    }
 
     /**
      * Displays a form to edit an existing Produto entity.

@@ -8,6 +8,9 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use HeringBundle\Entity\Caixa;
 
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
+
 /**
  * Caixa controller.
  *
@@ -45,15 +48,43 @@ class CaixaController extends Controller
             'caixa' => $caixa,
         ));
     }
-   
+    
     /**
-     * Responsavel pela tela de ponto do caixa
-     * 
-     * @Route("/pdv",name="caixa_pdv")
-     * @Method("GET") 
-     **/
+     * Responsavel pela tela de ponto de venda
+     *
+     * @Route("/pdv", name="caixa_pdv")
+     * @Method("GET")
+     */
     public function pdvAction()
     {
         return $this->render('HeringBundle:Caixa:caixa.html.twig');
     }
+    
+    
+    
+    /**
+     *  Extorna o item informado
+     * @Route("/estorno/{numero}", name="caixa_extorno")
+     * @param Request $request
+     */
+    public function extornoAction(Request $request,$numero)
+    {
+        
+    }
+    
+    /**
+     *  Finaliza, efetua o pagamento e baixa o estoque
+     * @Route("/finalizar", name="caixa_finalizar")
+     * @param Request $request
+     */
+    public function finalizarAction(Request $request)
+    {
+        
+    }
+    
+    
+    
+    
+    
+    
 }

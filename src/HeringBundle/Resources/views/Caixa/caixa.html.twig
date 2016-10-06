@@ -1,34 +1,36 @@
 {% extends "base.html.twig" %}
 
 {% block javascripts %}
-    <script type="text/javascript" src="{{ asset('js/pdv.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('js/pdv.js') }}" ></script>
 {% endblock %}
 
 {% block body %}
     <div class="col-md-4">
         <div class="panel panel-primary">
             <div class="panel-body">
-                <form id="find-produto" method="post" action="{{ path('produto_find') }}">  
+
+                <form id="find-produto" method="POST" action="{{ path('produto_find') }}">   
                     <div class="input-group">
                         <span class="input-group-addon"><span class="glyphicon glyphicon-barcode"></span></span>
                         <input type="text" name="produto" class="form-control" >
                         <span class="input-group-btn">
-                            <button class="btn btn-success" type="submit">
-                                <span class="glyphicon glyphicon-triangle-right"></span>
-                            </button>
+                            <button class="btn btn-success" type="submit"><span class="glyphicon glyphicon-triangle-right"></span></button>
                         </span>
                     </div>
                 </form>
+
                 <hr />
-                <div class="alert alert-warning hide" id="alerta-produto" role="alert">Produto não encontrado</div>
+
+                <div id="alerta-produto" class="alert alert-warning hide" role="alert">Produto não encontrado</div>
+
                 <div id="produto" class="thumbnail hide">
-                    <img src="..." alt="..." height="150" width="150">
+                    <img class="imagem" src="" alt="" height="150" width="150">
                     <div class="caption">
-                        <h3 class="nome">Nome do Produto</h3>
-                        <p>Preço Unitario: R$ <span class="preco"></span></p>
-                        <p>Marca: <span class="marca"> </span></p>
-                        <p>Tamanho: <span class="tamanho"> </span></p>
-                        <p>Modelo: <span class="modelo"> </span></p>
+                        <h3 class="nome"></h3>
+                        <p>Preço Unitario: R$ <span class="preco"></span> </p>
+                        <p>Marca: <span class="marca"></span> </p>
+                        <p>Modelo: <span class="modelo"></span></p>
+
                     </div>
                 </div> 
 
@@ -37,17 +39,13 @@
     </div>
 
     <div class="col-md-8">
-        <div class="panel panel-primary">
+        <div id="lista-produtos" class="panel panel-primary">
             <div class="panel-heading">
-                Total a Pagar: <span class="total-pagar pull-right">R$ 1.234,56</span>
+                Total a Pagar: <span class="total-pagar pull-right">R$ 0,00</span>
             </div>
-            <div class="panel-body">
-
-                <ol>
-                    <li>Produto x <span class="pull-right">R$ 123,46</span></li>
-                    <li>Produto x <span class="pull-right">R$ 123,46</span></li>
-                </ol>
-
+            <div class="panel-body">                
+                <ol class="listagem">                    
+                </ol>                
             </div>
 
             <div class="panel-footer">
@@ -76,7 +74,7 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-success" data-dismiss="modal">Não</button>
-                    <button type="button" class="btn btn-danger">Sim</button>
+                    <a href="{{ path('caixa_cancelar') }}" class="btn btn-danger">Sim</a>
                 </div>
             </div><!-- /.modal-content -->
         </div><!-- /.modal-dialog -->

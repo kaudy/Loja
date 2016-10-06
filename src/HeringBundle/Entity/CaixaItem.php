@@ -8,7 +8,7 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\Entity
  * @ORM\Table(name="caixa_item")
  */
-class CaixaItem 
+class CaixaItem implements \JsonSerializable
 {
     /**
      * @ORM\Column(type="integer")
@@ -38,11 +38,26 @@ class CaixaItem
     private $valor;
     
     /**
-     * @ORM\ManyToOne(targetEntity="Caixa", inversedBy="itens")
+     * @ORM\ManyToOne(targetEntity="\HeringBundle\Entity\Caixa", inversedBy="itens")
      * @ORM\JoinColumn(name="caixa_id", referencedColumnName="id")
      */
     private $caixa;
 
+    
+    /**
+     * 
+     * @return array
+     */
+    public function jsonSerialize()
+    {
+        return array(
+            "id"=> $this->getId(),
+            "codigo" => $this->getCodigoItem(),
+            "valor" => $this->getValor(),
+            "quantidade" => $this->getQuantidade()
+        );
+    } 
+    
     /**
      * Get id
      *
@@ -172,4 +187,6 @@ class CaixaItem
     {
         return $this->caixa;
     }
+    
+
 }
