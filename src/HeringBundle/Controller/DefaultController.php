@@ -16,7 +16,8 @@ class DefaultController extends Controller
      */
     public function indexAction()
     {
-        return $this->render('HeringBundle:Default:index.html.twig');
+        //return $this->render('HeringBundle:Default:index.html.twig');
+        return $this->redirectToRoute('frente_caixa');
     }
     
     /**
@@ -24,10 +25,11 @@ class DefaultController extends Controller
      */
     public function pdvAction(Request $request)
     {
+        $usuario = $this->getUser();
         $caixa = new Caixa();
         $caixa->setData(new \DateTime());
         $caixa->setStatus("ABERTO");
-        $caixa->setUsuario('Teste');
+        $caixa->setUsuario($usuario);
         $caixa->setTotalPago(0);
         
 

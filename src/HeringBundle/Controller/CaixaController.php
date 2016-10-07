@@ -7,6 +7,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use HeringBundle\Entity\Caixa;
+use HeringBundle\Entity\CaixaItem;
 
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -69,7 +70,32 @@ class CaixaController extends Controller
      */
     public function extornoAction(Request $request,$numero)
     {
+        $em = $this->getDoctrine()->getManager();
+        $caixaId = $request->getSession()->get('caixa_id');
         
+        /** @var Caixa */
+        $caixa = $em->getRepository('HeringBundle:Caixa')->find($caixaId);
+        $itens = $caixa->getItens();         
+        $itemSel = $itens->get($numero -1);
+       
+        //Cria novo item para estornar
+        $novoItem = new CaixaItem();
+        $novoItem->setCaixa($caixa); //seta a caixa ativa
+        $novoItem->setCodigoItem('111111'); //seta o codigo de estorno
+        $novoItem->setQuantidade(1);
+        $novoItem->setNumeroItem(1);
+        
+        //pega valor do item a ser estornado e transforma para negativo
+        $novoItem->setValor($itemSel->getValor() * -1); 
+        $novoItem->setDescricao("Estorno do Item ". $numero);
+        
+        $em->persist($novoItem);
+        $em->flush();
+        
+        $retorno = array(
+            "status" => "ok"
+        );
+        return $this->json($retorno);
     }
     
     /**

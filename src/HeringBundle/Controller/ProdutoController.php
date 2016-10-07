@@ -118,6 +118,7 @@ class ProdutoController extends Controller
             $item->setCodigoItem($produto->getCodigo());
             $item->setQuantidade(1);
             $item->setValor($produto->getValor());
+            $item->setDescricao('Produto: '.$produto->getNome());
             
             $item->setCaixa($caixa);      
             $em->persist($item);          

@@ -1,6 +1,7 @@
 $(document).ready(function(){
     
-    $('#find-produto').submit(function(evento){
+    $('#find-produto').submit(function(evento)
+    {
         evento.preventDefault();
        
        var url = $(this).attr('action');
@@ -35,7 +36,20 @@ $(document).ready(function(){
         
     });
     
-    
+    $('#form-estorno').submit(function(evento)
+    {
+        evento.preventDefault();        
+        var url = '/caixa/estorno/'+$('#form-estorno input[name="item-numero"]').val();
+        
+        $.getJSON(url,function(retorno)
+        {
+            if(retorno.status == "ok")
+            {
+                listagemItens();
+                $('#estornar').modal('hide');
+            }
+        });
+    });  
     
 });
 
@@ -49,7 +63,7 @@ function listagemItens()
         {
            var produto = retorno[idx];
            
-           var li = $('<li>Produto '+produto.codigo+' <span class="pull-right">R$ '+produto.valor+'</span></li>')
+           var li = $('<li> '+produto.descricao+' <span class="pull-right">R$ '+produto.valor+'</span></li>')
            $('#lista-produtos .listagem').append(li);
            
            total +=parseFloat(produto.valor);
