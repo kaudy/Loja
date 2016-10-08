@@ -105,7 +105,19 @@ class CaixaController extends Controller
      */
     public function finalizarAction(Request $request)
     {
+        $total = $request->get('total-pago');
         
+        $em = $this->getDoctrine()->getManager();
+        $caixaId = $request->getSession()->get('caixa_id');
+        
+        $caixa = $em->getRepository('HeringBundle:Caixa')->find($caixaId);
+        
+        $caixa->setTotalPago($total);
+        
+        $em->persist($novoItem);
+        $em->flush();
+        
+        $this->redirectToRoute('caixa_pdv');
     }
     
     
